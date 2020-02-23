@@ -30,12 +30,20 @@ class RayTracer::Tuple
   end
 
   def ==(other)
-    epsilon_equals(x, other.x) && epsilon_equals(y, other.y) && epsilon_equals(z, other.z) && epsilon_equals(w, other.w)
+    self.class == other.class && state_equals?(other)
   end
+
+  # def +(other)
+  #   if is_point? && other.is_point?
+  # end
 
   private
 
-    def epsilon_equals(v, w)
+    def epsilon_equals?(v, w)
       (v - w).abs < EPSILON
     end
+
+     def state_equals?(other)
+       %w(@x @y @z @w).all? { |var| epsilon_equals?(instance_variable_get(var), other.instance_variable_get(var)) }
+     end
 end
