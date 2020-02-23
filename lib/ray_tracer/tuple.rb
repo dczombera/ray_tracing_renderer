@@ -33,9 +33,10 @@ class RayTracer::Tuple
     self.class == other.class && state_equals?(other)
   end
 
-  # def +(other)
-  #   if is_point? && other.is_point?
-  # end
+  def +(other)
+    raise RayTracer::PointAdditionError if is_point? && other.is_point?
+    self.class.new(x: x + other.x, y: y + other.y, z: z + other.z, w: w + other.w)
+  end
 
   private
 
