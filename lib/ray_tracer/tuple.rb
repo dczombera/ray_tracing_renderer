@@ -1,6 +1,8 @@
 class RayTracer::Tuple
   attr_accessor :x, :y, :z, :w
 
+  EPSILON = 1.0e-05
+
   # Factory methods
   class << self
     def point(x: 0.0, y: 0.0, z: 0.0)
@@ -26,4 +28,14 @@ class RayTracer::Tuple
   def is_vector?
     w == 0.0
   end
+
+  def ==(other)
+    epsilon_equals(x, other.x) && epsilon_equals(y, other.y) && epsilon_equals(z, other.z) && epsilon_equals(w, other.w)
+  end
+
+  private
+
+    def epsilon_equals(v, w)
+      (v - w).abs < EPSILON
+    end
 end

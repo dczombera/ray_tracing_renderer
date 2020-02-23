@@ -32,4 +32,36 @@ class TupleTest < MiniTest::Test
     assert vector.is_vector?
     assert !vector.is_point?
   end
+
+  def test_that_tuples_are_equal
+    tuple = RayTracer::Tuple.new(x: 1.0, y: 2.0, z: 3.0, w: 0.0)
+    other_tuple = RayTracer::Tuple.new(x: 1.0, y: 2.2, z: 3.0, w: 0.0)
+    assert_equal false, tuple == other_tuple
+
+    tuple = RayTracer::Tuple.new(x: 1.1, y: 2.0, z: 3.0, w: 0.0)
+    other_tuple = RayTracer::Tuple.new(x: 1.2, y: 2.0, z: 3.0, w: 0.0)
+    assert_equal false, tuple == other_tuple
+
+    tuple = RayTracer::Tuple.new(x: 1.0, y: 2.0, z: 3.0, w: 0.0)
+    other_tuple = RayTracer::Tuple.new(x: 1.0, y: 2.0, z: 2.0, w: 0.0)
+    assert_equal false, tuple == other_tuple
+
+    tuple = RayTracer::Tuple.new(x: 1.00001, y: 2.0, z: 3.0, w: 1.0)
+    other_tuple = RayTracer::Tuple.new(x: 1.0, y: 2.0, z: 3.0, w: 1.0)
+    assert_equal false, tuple == other_tuple
+  end
+
+  def test_that_tuples_are_not_equal
+    tuple = RayTracer::Tuple.new(x: 1.0, y: 2.0, z: 3.0, w: 0.0)
+    other_tuple = RayTracer::Tuple.new(x: 1.0, y: 2.0, z: 3.0, w: 0.0)
+    assert tuple == other_tuple
+
+    tuple = RayTracer::Tuple.new(x: 1.0, y: 2.0, z: 3.0, w: 1.0)
+    other_tuple = RayTracer::Tuple.new(x: 1.0, y: 2.0, z: 3.0, w: 1.0)
+    assert tuple == other_tuple
+
+    tuple = RayTracer::Tuple.new(x: 1.000001, y: 2.0, z: 3.0, w: 1.0)
+    other_tuple = RayTracer::Tuple.new(x: 1.0, y: 2.0, z: 3.0, w: 1.0)
+    assert tuple == other_tuple
+  end
 end
