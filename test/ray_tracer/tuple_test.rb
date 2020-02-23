@@ -81,4 +81,26 @@ class TupleTest < MiniTest::Test
     point = RayTracer::Tuple.point(x: 1.2, y: 1.2, z: 1.2)
     assert_raises(RayTracer::PointAdditionError) { point + point }
   end
+
+  def test_that_subtraction_of_two_points_results_in_vector
+    result = RayTracer::Tuple.point(x: 2.0, y: 1.0, z: 3.0) - RayTracer::Tuple.point(x: 1.0, y: 1.0, z: 1.0)
+    expected = RayTracer::Tuple.vector(x: 1.0, y: 0.0, z: 2.0)
+    assert_equal expected, result
+  end
+
+  def test_that_subtraction_of_vector_from_point_results_in_point
+    result = RayTracer::Tuple.point(x: 2.0, y: 2.0, z: 2.0) - RayTracer::Tuple.vector(x: 1.0, y: 1.0, z: 1.0)
+    expected = RayTracer::Tuple.point(x: 1.0, y: 1.0, z: 1.0)
+    assert_equal expected, result
+  end
+
+  def test_that_subtraction_of_two_vectors_results_in_vector
+    result = RayTracer::Tuple.vector(x: 3.0, y: 3.0, z: 3.0) - RayTracer::Tuple.vector(x: 1.5, y: 1.5, z: 1.5)
+    expected = RayTracer::Tuple.vector(x: 1.5, y: 1.5, z: 1.5)
+    assert_equal expected, result
+  end
+
+  def test_that_error_is_raised_when_point_is_subtracted_from_vector
+    assert_raises(RayTracer::VectorPointSubtractionError) { RayTracer::Tuple.vector - RayTracer::Tuple.point }
+  end
 end

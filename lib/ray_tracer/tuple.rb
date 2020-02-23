@@ -38,6 +38,11 @@ class RayTracer::Tuple
     self.class.new(x: x + other.x, y: y + other.y, z: z + other.z, w: w + other.w)
   end
 
+  def -(other)
+    raise RayTracer::VectorPointSubtractionError if is_vector? && other.is_point?
+    self.class.new(x: x - other.x, y: y - other.y, z: z - other.z, w: w - other.w)
+  end
+
   private
 
     def epsilon_equals?(v, w)
