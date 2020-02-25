@@ -11,5 +11,17 @@ module RayTracer
       "Subtraction of point from vector is an invalid operation!"
     end
   end
+
+  class NotScalarError < TupleError
+    attr_reader :object
+
+    def initialize(object)
+      @object = object
+    end
+
+    def message
+      "#{object} needs to be of type Numeric"
+    end
+  end
 end
 

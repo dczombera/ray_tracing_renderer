@@ -129,4 +129,20 @@ class TupleTest < MiniTest::Test
     expected = create_tuple(-1, 2, -3, 4)
     assert_equal expected, negated_tuple
   end
+
+  def test_multiplying_tuple_by_a_scalar
+    result = create_tuple(4, 3, -2, 1) * 3
+    expected = create_tuple(12, 9, -6, 3)
+    assert_equal expected, result
+  end
+
+  def test_multiplying_tuple_by_a_fraction
+    result = create_tuple(1, 2, -3, 4) * 0.5
+        expected = create_tuple(0.5, 1, -1.5, 2)
+    assert_equal expected, result
+  end
+
+  def test_that_non_scalar_input_raises_error
+    assert_raises(RayTracer::NotScalarError) { create_tuple(1, 1, 1, 1) * "a" }
+  end
 end
