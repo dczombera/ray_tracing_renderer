@@ -9,6 +9,10 @@ class TupleTest < MiniTest::Test
     RayTracer::Tuple.point(x: x, y: y, z: z)
   end
 
+  def create_tuple(x, y, z, w)
+    RayTracer::Tuple.new(x: x, y: y, z: z, w:w )
+  end
+
   def test_that_tuple_is_point
     tuple = create_point(4.3, -4.2,3.1)
     assert_equal tuple.x, 4.3
@@ -118,5 +122,11 @@ class TupleTest < MiniTest::Test
 
   def test_that_error_is_raised_when_point_is_subtracted_from_vector
     assert_raises(RayTracer::VectorPointSubtractionError) { create_vector(1.0, 1.0, 1.0) - create_point(1.0, 1.0, 1.0) }
+  end
+
+  def test_that_tuple_is_negated
+    negated_tuple = -create_tuple(1, -2, 3, -4)
+    expected = create_tuple(-1, 2, -3, 4)
+    assert_equal expected, negated_tuple
   end
 end

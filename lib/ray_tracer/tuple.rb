@@ -29,6 +29,10 @@ class RayTracer::Tuple
     w == 0.0
   end
 
+  def -@
+    self.class.new(x: -x, y: -y, z: -z, w: -w)
+  end
+
   def ==(other)
     self.class == other.class && state_equals?(other)
   end
