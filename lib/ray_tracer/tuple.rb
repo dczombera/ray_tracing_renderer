@@ -52,6 +52,11 @@ class RayTracer::Tuple
     self.class.new(x: x * scalar, y: y * scalar, z: z * scalar, w: w * scalar)
   end
 
+  def /(scalar)
+    raise RayTracer::NotScalarError.new(scalar) if !scalar.is_a? Numeric
+    self.class.new(x: x.fdiv(scalar), y: y.fdiv(scalar), z: z.fdiv(scalar), w: w.fdiv(scalar))
+  end
+
   private
 
     def epsilon_equals?(v, w)
